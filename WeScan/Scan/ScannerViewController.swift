@@ -103,11 +103,14 @@ final class ScannerViewController: UIViewController {
         
         navigationController?.navigationBar.barStyle = .blackTranslucent
     }
+
+    override func viewWillLayoutSubviews() {
+      videoPreviewLayer.connection?.videoOrientation = AVCaptureVideoOrientation(rawValue: UIApplication.shared.statusBarOrientation.rawValue) ?? .portrait
+      videoPreviewLayer.frame = view.layer.bounds
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        videoPreviewLayer.frame = view.layer.bounds
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
         let visualEffectRect = self.navigationController?.navigationBar.bounds.insetBy(dx: 0, dy: -(statusBarHeight)).offsetBy(dx: 0, dy: -statusBarHeight)
